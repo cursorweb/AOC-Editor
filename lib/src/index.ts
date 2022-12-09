@@ -1,3 +1,3 @@
-import "./string";
-import "./array";
-export * from "./utils";
+import "./string.js";
+import "./array.js";
+export * from "./utils.js";
