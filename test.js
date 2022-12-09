@@ -1,4 +1,4 @@
 /// <reference path="lib/dist/index.d.ts" />
-import "./lib/dist/bundle.js";
+import * as _ from "./lib/dist/bundle.js";
 
-console.log("abcdef".chars());
+console.log(_.arrayRepeat(69, 5));

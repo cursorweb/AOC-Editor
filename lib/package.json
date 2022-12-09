@@ -1,10 +1,10 @@
 {
+  "type": "module",
   "name": "lib",
   "version": "1.0.0",
   "description": "Utils",
-  "main": "index.js",
   "scripts": {
-    "start": "webpack --mode=development",
+    "start": "webpack --mode=development --watch",
     "build": "webpack --mode=production"
   },
   "author": "Coder100",

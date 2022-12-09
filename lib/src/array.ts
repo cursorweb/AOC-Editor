@@ -1,18 +1,50 @@
-interface Array<T extends Number> {
+interface Array<T extends number> {
     /**
      * Sorts the array from min to max
      * For example: `[5, 9, 3]` -> `[3, 5, 9]`
      */
-    sortAsc(): void;
+    sortAsc(): Array<number>;
+
     /**
      * Sorts the array from max to min
      * For example: `[2, 9, 10]` -> `[10, 9, 2]`
      */
-    sortDesc(): void;
-    max(): Number;
-    min(): Number;
+    sortDesc(): Array<number>;
+
+    /**
+     * Returns max of array
+     */
+    max(): number;
+
+    /**
+     * Returns min of array
+     */
+    min(): number;
+
+    /**
+     * Returns sum
+     */
+    sum(): number;
 }
 
 Array.prototype.sortAsc = function() {
+    (this as Array<number>).sort((a, b) => a - b);
+    return this;
+}
 
+Array.prototype.sortDesc = function() {
+    (this as Array<number>).sort((a, b) => b - a);
+    return this;
+}
+
+Array.prototype.min = function() {
+    return Math.min(...this);
+}
+
+Array.prototype.max = function() {
+    return Math.max(...this);
+}
+
+Array.prototype.sum = function() {
+    return (this as Array<number>).reduce((a, b) => a + b);
 }
