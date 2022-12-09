@@ -28,6 +28,11 @@ declare global {
          * Returns sum
          */
         sum(): number;
+
+        /**
+         * Map all the values to a number
+         */
+        mapToNum(): Array<number>;
     }
 }
 
@@ -51,4 +56,8 @@ Array.prototype.max = function () {
 
 Array.prototype.sum = function () {
     return (this as Array<number>).reduce((a, b) => a + b);
+}
+
+Array.prototype.mapToNum = function() {
+    return (this as Array<any>).map(Number);
 }

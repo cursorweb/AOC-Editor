@@ -20,5 +20,8 @@ Run these 2 commands at the same time:
 1. `npm run server`
 2. `npm start`
 
+To dev `lib/`, run this `npm run all`.
+Note that any changes means autocomplete requires a page reload.
+
 ## Caveats/Todos
 Right now, the `lib/` is a separate folder that's not in `public/`. Therefore, we can't access the util functions until after compilation. That means no script in `src/` can use them. There's no use for them other than in the editor which works, but a more 'better' solution is desired.
