@@ -20,11 +20,10 @@ export function App() {
     ].join('\n'), 'filename/facts.d.ts');
   }
 
-
   return (
     <div className="App">
       <h1>My IDE</h1>
-      <p>Filler text</p>
+      <p>Filler text, yeah i'm real</p>
       <Editor
         height="90vh"
         defaultLanguage="javascript"
@@ -34,9 +33,10 @@ export function App() {
           cursorSmoothCaretAnimation: true,
           scrollBeyondLastLine: true,
           smoothScrolling: true,
+          
         }}
         onMount={editorMount}
-        defaultValue="// some comment"
+        defaultValue=""
       />
     </div>
   );

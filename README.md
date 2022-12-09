@@ -14,3 +14,8 @@ This is meant to be *easy-to-use* so you can focus on your code and not the boil
 
 ## What this is not
 This isn't really an IDE for anything else, it won't be.
+
+## Running
+Run these 2 commands at the same time:
+1. `npm run server`
+2. `npm start`
