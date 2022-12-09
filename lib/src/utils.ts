@@ -8,13 +8,14 @@ export function arrayRepeat<T>(val: T, amount: number) {
     return new Array(amount).fill(val);
 }
 
+type RecArray<T> = Array<T | RecArray<T>>;
 /**
  * Creates a simple grid
  * @param val The value
  * @param sizes The dimensions
  * @returns An array grid
  */
-export function grid<T>(val: T, ...sizes: number[]): unknown[] {
+export function grid<T>(val: T, ...sizes: number[]): RecArray<T> {
     if (sizes.length == 1) {
         const out = [];
         for (let i = 0; i < sizes[0]; i++) {

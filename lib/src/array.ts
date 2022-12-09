@@ -1,4 +1,4 @@
-interface Array<T extends number> {
+interface Array<T> {
     /**
      * Sorts the array from min to max
      * For example: `[5, 9, 3]` -> `[3, 5, 9]`
