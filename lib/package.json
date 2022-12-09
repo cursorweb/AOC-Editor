@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Utils",
   "scripts": {
-    "start": "webpack --mode=development --watch",
-    "build": "webpack --mode=production"
+    "start": "tsc --watch",
+    "build": "tsc"
   },
   "author": "Coder100",
   "license": "MIT",

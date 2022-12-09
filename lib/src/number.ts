@@ -1,10 +1,13 @@
-interface Number {
-    /**
-     * Like the python chr function
-     */
-    chr(): string;
+export { };
+declare global {
+    interface Number {
+        /**
+         * Like the python chr function
+         */
+        chr(): string;
+    }
 }
 
-Number.prototype.chr = function() {
+Number.prototype.chr = function () {
     return String.fromCharCode(this);
 }
