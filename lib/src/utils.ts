@@ -42,7 +42,7 @@ export function grid<T>(val: T, ...sizes: number[]): RecArray<T> {
  * console.log(counter.map); // { x: 1 }
  * ```
  */
-export class Counter<K extends string, V extends number> {
+export class CounterClass<K extends string, V extends number> {
     /**
      * The internal hashmap that is being edited
      */
@@ -55,29 +55,11 @@ export class Counter<K extends string, V extends number> {
     }
 
     /**
-     * Increase the value of `key`. Should only be used with numbers.
-     * Equivalent to `.set(key, x => x + 1)`
-     * @param key The key to set
-     */
-    public incr(key: K) {
-        this.set(key, v => v as number + 1 as V);
-    }
-
-    /**
      * Sets the key.
      * @param key Key
      * @param f Function to increase
      */
-    public set(key: K, f: (v: V) => V) {
-        let val = this.map.get(key);
-
-        if (!val) {
-            this.map.set(key, this.v);
-            val = this.v;
-        }
-
-        val = f(val);
-
+    public set(key: K, val: V) {
         this.map.set(key, val);
     }
 
@@ -89,4 +71,20 @@ export class Counter<K extends string, V extends number> {
     public get(key: K) {
         return this.map.get(key) || this.v;
     }
+}
+
+/**
+ * A Proxy for ease of use
+ * @returns New CounterClass instance
+ */
+export function Counter() {
+    return new Proxy(new CounterClass(), {
+        get(target, key) {
+            return target.get(key as string);
+        },
+        set(target, key, val) {
+            target.set(key as string, val);
+            return val;
+        },
+    });
 }
