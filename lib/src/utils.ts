@@ -55,6 +55,24 @@ export class CounterClass<K extends string, V extends number> {
     }
 
     /**
+     * Increase by amount
+     * @param key Key
+     * @param amt Amount
+     */
+    public incr(key: K, amt = 1) {
+        this.setf(key, x => x as number + amt as V);
+    }
+
+    /**
+     * Set based on function
+     * @param key Key
+     * @param f Func
+     */
+    public setf(key: K, f: (v: V) => V) {
+        this.set(key, f(this.get(key)));
+    }
+
+    /**
      * Sets the key.
      * @param key Key
      * @param f Function to increase
@@ -74,17 +92,32 @@ export class CounterClass<K extends string, V extends number> {
 }
 
 /**
- * A Proxy for ease of use
+ * A Proxy for ease of use.
+ * You may not use map as a key, so be careful.
+ * ```js
+ * const x = new Counter();
+ * x.a++;
+ * x.b++;
+ * console.log(x.map);
+ * ```
  * @returns New CounterClass instance
  */
-export function Counter() {
-    return new Proxy(new CounterClass(), {
+export function Counter(v = 0) {
+    return new Proxy(new CounterClass(v), {
         get(target, key) {
+            if (key == 'map') {
+                return target.map;
+            }
+
             return target.get(key as string);
         },
         set(target, key, val) {
+            if (key == 'map') {
+                throw new Error("Cannot set property map.");
+            }
+
             target.set(key as string, val);
             return val;
-        },
+        }
     });
 }

@@ -29,6 +29,14 @@ export function App() {
       for (const path of files) {
         const text = await fetch("/lib/dist/" + path).then(x => x.text());
         jsDefs.addExtraLib(text, path);
+
+        if (path == "utils.d.ts") {
+          /*
+          export declare function...
+          export {};
+          */
+          jsDefs.addExtraLib(text.replace(/export declare/g, "").replace(/export \{\};/g, ""), "global.d.ts");
+        }
       }
     });
   }
