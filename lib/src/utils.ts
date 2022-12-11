@@ -138,3 +138,49 @@ export function Counter(v = 0) {
 export function showGrid<T>(grid: T[][], mapF = (x: T[]) => x.join(""), sep = "\n") {
     console.log(grid.map(mapF).join(sep));
 }
+
+let shouldLog = true;
+
+/**
+ * Disable `log` calls
+ * To enable quickly
+ * ```js
+ * noLog(true);
+ * ```
+ * @param yes Optionally enable it
+ */
+export function noLog(yes = false) {
+    shouldLog = yes;
+}
+
+/**
+ * Logs all the text, but you can disable with `noLog();`
+ * @param text Text
+ */
+export function log(...text: any[]) {
+    if (shouldLog) {
+        console.log(...text);
+    }
+}
+
+/**
+ * Log each with variable. This adheres to noLog as well.
+ * ```js
+ * let a = 5, b = 6, c = 7;
+ * debug({ a, b, c });
+ * // a: 5 b: 6 c: 7
+ * ```
+ * @param text Text
+ * @param newline optionally print on each line
+ */
+export function debug(text: Record<string, any>, newline = false) {
+    if (!shouldLog) return;
+
+    if (!newline) {
+        console.log(...Object.keys(text).flatMap(k => [k + ":", text[k]]));
+    } else {
+        for (const k in text) {
+            console.log(k + ":", text[k]);
+        }
+    }
+}
