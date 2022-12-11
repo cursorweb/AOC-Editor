@@ -6,5 +6,9 @@
         "target": "ESNext",
         "declaration": true,
         "moduleResolution": "node"
+    },
+    "typedocOptions": {
+        "entryPoints": ["src/*.ts"],
+        "out": "docs"
     }
 }

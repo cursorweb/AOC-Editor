@@ -5,6 +5,7 @@ import * as fs from "fs";
 
 app.use(express.static("build"));
 app.use("/lib/dist", express.static("lib/dist"));
+app.use("/lib/docs", express.static("lib/docs"));
 
 app.get("/api/types", (_, res) => {
     res.json(fs.readdirSync("lib/dist").filter(x => x.endsWith(".d.ts")));

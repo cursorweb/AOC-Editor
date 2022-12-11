@@ -4,12 +4,14 @@
   "description": "Utils",
   "scripts": {
     "start": "tsc --watch",
-    "build": "tsc"
+    "build": "tsc",
+    "typedoc": "typedoc --out docs src/index.ts"
   },
   "author": "Coder100",
   "license": "MIT",
   "typings": "dist/index.d.ts",
   "devDependencies": {
+    "typedoc": "^0.23.22",
     "typescript": "^4.9.4"
   }
 }

@@ -15,4 +15,4 @@ globalThis._ = utils;
 
 Object.entries(utils).forEach(([name, exported]) => (globalThis as any)[name] = exported);
 
-export {};
+export * from "./utils.js";

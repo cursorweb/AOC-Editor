@@ -8,7 +8,8 @@ export function arrayRepeat<T>(val: T, amount: number) {
     return new Array(amount).fill(val);
 }
 
-type RecArray<T> = Array<T | RecArray<T>>;
+export type RecArray<T> = Array<T | RecArray<T>>;
+
 /**
  * Creates a simple grid
  * @param val The value
