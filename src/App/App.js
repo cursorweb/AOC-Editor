@@ -44,13 +44,9 @@ export function App() {
     });
 
     editor.addAction({
-      // An unique identifier of the contributed action.
       id: 'run-code',
-
-      // A label of the action that will be presented to the user.
       label: 'Run Code',
 
-      // An optional array of keybindings for the action.
       keybindings: [
         monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
         monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS
@@ -72,8 +68,7 @@ export function App() {
 
   return (
     <div>
-      {/* <h1>{process.env.NODE_ENV === 'production' ? "This is production!" : "Development"}</h1> */}
-      <Nav />
+      <Nav editorRef={editorRef} />
       <Editor
         height="90vh"
         defaultLanguage="javascript"

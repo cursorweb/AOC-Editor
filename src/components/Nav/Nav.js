@@ -2,18 +2,24 @@ import { Dropdown } from "./Dropdown/Dropdown.js";
 import { Button } from "./Button/Button.js";
 import styles from "./Nav.module.css";
 
-export function Nav() {
+export function Nav({ editorRef: { current: editorRef } }) {
     return (
         <nav className={styles.nav}>
             <Dropdown title="File">
-                <Button>Export File</Button>
+                <Button onClick={() => alert(editorRef.getValue())}>Export File</Button>
                 <Button>Settings</Button>
             </Dropdown>
             <Dropdown title="Edit">
-                <Button>AOC Input</Button>
+                <Button>AOC Inputs</Button>
+                <Button>Puzzle Day Info</Button>
                 <Button>Zen Mode</Button>
             </Dropdown>
-            <Button>Run</Button>
+            <Dropdown title="Window">
+                <Button>Submitted Responses</Button>
+                <Button>AOC Inputs</Button>
+                <Button>Cheatsheet</Button>
+                <Button>Lib Docs</Button>
+            </Dropdown>
             <Dropdown title="Help">
                 <Button>Lib Docs</Button>
                 <Button>Cheatsheet</Button>
