@@ -30,7 +30,7 @@ export function App() {
         const text = await fetch("/lib/dist/" + path).then(x => x.text());
         jsDefs.addExtraLib(text, path);
 
-        if (path == "utils.d.ts") {
+        if (path === "utils.d.ts") {
           /*
           export declare function...
           export {};

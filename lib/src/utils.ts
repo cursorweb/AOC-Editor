@@ -95,7 +95,7 @@ export class CounterClass<K extends string, V extends number> {
  * A Proxy for ease of use.
  * You may not use map as a key, so be careful.
  * ```js
- * const x = new Counter();
+ * const x = Counter();
  * x.a++;
  * x.b++;
  * console.log(x.map);
@@ -120,4 +120,21 @@ export function Counter(v = 0) {
             return val;
         }
     });
+}
+
+/**
+ * Prints an MxN grid.
+ * Don't `console.log` this!
+ * ```js
+ * showGrid(grid('.', 2, 2));
+ * 
+ * // ..
+ * // ..
+ * ```
+ * @param grid The grid
+ * @param mapF Special inner join function (e.g. `x => x.join("\n")`)
+ * @param sep Special joiner (e.g. `\n`)
+ */
+export function showGrid<T>(grid: T[][], mapF = (x: T[]) => x.join(""), sep = "\n") {
+    console.log(grid.map(mapF).join(sep));
 }

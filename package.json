@@ -18,10 +18,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "node .",
-    "all": "cd lib && npm start && cd .. && npm run build"
+    "dev": "concurrently \"npm start\" \"npm run server\" \"cd lib && npm start\"",
+    "prod": "concurrently \"npm run build\" \"cd lib && npm run build\""
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
   }
 }
