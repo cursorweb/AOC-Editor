@@ -1,4 +1,4 @@
-export {};
+export { };
 
 declare global {
     interface Array<T> {
@@ -33,6 +33,19 @@ declare global {
          * Map all the values to a number
          */
         mapToNum(): Array<number>;
+
+        /**
+         * Split each element by sep, with optional comprehension
+         * 
+         * ```js
+         * ["a 5", "b 6"].splitSpace([String, Number]);
+         * // [["a", 5], ["b", 6]]
+         * ```
+         * 
+         * @param func Optional comprehension function
+         * @param sep Separator (e.g. ' ')
+         */
+        splitTo(func?: ((split: string) => unknown)[], sep?: string): Array<unknown>;
     }
 }
 
@@ -58,6 +71,15 @@ Array.prototype.sum = function () {
     return (this as Array<number>).reduce((a, b) => a + b);
 }
 
-Array.prototype.mapToNum = function() {
+Array.prototype.mapToNum = function () {
     return (this as Array<any>).map(Number);
+}
+
+Array.prototype.splitTo = function (func = [], sep = " ") {
+    return (this as Array<string>)
+        .map(x =>
+            x
+                .split(sep)
+                .map((x, i) => (func[i] || String)(x))
+        );
 }
