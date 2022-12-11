@@ -35,24 +35,42 @@ export function App() {
           export declare function...
           export {};
           */
-          jsDefs.addExtraLib(text.replace(/export declare/g, "").replace(/export \{\};/g, ""), "global.d.ts");
+          jsDefs.addExtraLib(text.replace(/export declare/g, "").replace(/export \{\};/g, "").replace(/export /g, ""), "global.d.ts");
         }
+      }
+    });
+
+    editor.addAction({
+      // An unique identifier of the contributed action.
+      id: 'run-code',
+
+      // A label of the action that will be presented to the user.
+      label: 'Run Code',
+
+      // An optional array of keybindings for the action.
+      keybindings: [
+        monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+        monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS
+      ],
+      run: () => {
+        evalIt();
       }
     });
   }
 
-  function evalIt(e) {
+  function evalIt() {
+    const code = editorRef.current.getValue();
     const text = "some\nrandom\ninput";
     const lines = text.split("\n");
 
     // eslint-disable-next-line
-    new Function("lines", "text", e)(lines, text);
+    new Function("lines", "text", code)(lines, text);
   }
 
   return (
     <div className="App">
       <h1>My IDE</h1>
-      <p>Filler text, yeah i'm real</p>
+      <p>{process.env.NODE_ENV == 'production' ? "This is production!" : "Development"}</p>
       <Editor
         height="90vh"
         defaultLanguage="javascript"
@@ -64,9 +82,14 @@ export function App() {
           smoothScrolling: true,
         }}
         onMount={editorMount}
-        onChange={evalIt}
         defaultValue=""
       />
+
+      {
+        process.env.NODE_ENV === 'production' ?
+          <iframe src="/lib/docs" title="Docs"></iframe> :
+          <iframe srcDoc='docs in production only' title='Docs'></iframe>
+      }
     </div>
   );
 }

@@ -4,7 +4,7 @@
   "description": "Utils",
   "scripts": {
     "start": "tsc --watch",
-    "build": "tsc",
+    "build": "concurrently \"tsc\" \"npm run typedoc\"",
     "typedoc": "typedoc --out docs src/index.ts"
   },
   "author": "Coder100",
