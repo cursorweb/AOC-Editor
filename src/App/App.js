@@ -1,6 +1,9 @@
 import './App.css';
+
 import Editor from "@monaco-editor/react";
 import { useRef } from 'react';
+
+import { Nav } from '../components/Nav/Nav.js';
 
 const file = `
 /**
@@ -68,9 +71,9 @@ export function App() {
   }
 
   return (
-    <div className="App">
-      <h1>My IDE</h1>
-      <p>{process.env.NODE_ENV == 'production' ? "This is production!" : "Development"}</p>
+    <div>
+      {/* <h1>{process.env.NODE_ENV === 'production' ? "This is production!" : "Development"}</h1> */}
+      <Nav />
       <Editor
         height="90vh"
         defaultLanguage="javascript"
