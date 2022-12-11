@@ -45,7 +45,7 @@ declare global {
          * @param func Optional comprehension function
          * @param sep Separator (e.g. ' ')
          */
-        splitTo(func?: ((split: string) => unknown)[], sep?: string): Array<unknown>;
+        splitTo(func?: ((split: string) => unknown)[], sep?: string): Array<unknown>[];
     }
 }
 
