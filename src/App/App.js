@@ -1,7 +1,7 @@
 import './App.css';
 
 import Editor from "@monaco-editor/react";
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { Nav } from '../components/Nav/Nav.js';
 
@@ -19,6 +19,8 @@ const text: string;`;
 export function App() {
   const editorRef = useRef(null);
   const monacoRef = useRef(null);
+
+  const [modals, setModal] = useState([]);
 
   function editorMount(editor, monaco) {
     editorRef.current = editor;
@@ -82,7 +84,11 @@ export function App() {
 
   return (
     <div>
-      <Nav editorRef={editorRef} />
+      <Nav
+        editorRef={editorRef}
+        setModal={setModal}
+      />
+
       <Editor
         height="90vh"
         defaultLanguage="javascript"
@@ -99,6 +105,10 @@ export function App() {
         onMount={editorMount}
         defaultValue=""
       />
+
+      <div>
+        {modals}
+      </div>
 
       {
         process.env.NODE_ENV === 'production' ?

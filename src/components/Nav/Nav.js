@@ -15,15 +15,18 @@ export function Nav({ editorRef: { current: editorRef } }) {
                 <Button>Zen Mode</Button>
             </Dropdown>
             <Dropdown title="Window">
-                <Button>Submitted Responses</Button>
                 <Button>AOC Inputs</Button>
                 <Button>Cheatsheet</Button>
+                <Button>Code Editor</Button>
+                <Button>Console</Button>
                 <Button>Lib Docs</Button>
+                <Button>Puzzle Viewer</Button>
+                <Button>Submitted Responses</Button>
             </Dropdown>
             <Dropdown title="Help">
-                <Button>Lib Docs</Button>
-                <Button>Cheatsheet</Button>
                 <Button>About</Button>
+                <Button>Cheatsheet</Button>
+                <Button>Lib Docs</Button>
             </Dropdown>
         </nav>
     );
