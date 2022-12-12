@@ -55,6 +55,20 @@ export function App() {
         evalIt();
       }
     });
+
+    monaco.editor.defineTheme('vs-dark-plus', {
+      base: 'vs-dark',
+      inherit: true,
+      rules: [
+        { token: "identifier.js", foreground: "9cdcfe" }
+      ],
+      colors: {
+      }
+    });
+
+    editor.updateOptions({
+      theme: "vs-dark-plus"
+    });
   }
 
   function evalIt() {
@@ -78,6 +92,9 @@ export function App() {
           cursorSmoothCaretAnimation: true,
           scrollBeyondLastLine: true,
           smoothScrolling: true,
+          // todo: this might be bug
+          // https://github.com/microsoft/monaco-editor/issues/3013
+          'bracketPairColorization.enabled': true,
         }}
         onMount={editorMount}
         defaultValue=""
