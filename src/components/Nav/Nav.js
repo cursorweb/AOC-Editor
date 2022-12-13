@@ -1,13 +1,21 @@
 import { Dropdown } from "./Dropdown/Dropdown.js";
 import { Button } from "./Button/Button.js";
 import styles from "./Nav.module.css";
+import { Modal } from "../Modal/Modal.js";
 
-export function Nav({ editorRef: { current: editorRef } }) {
+export function Nav({ editorRef: { current: editorRef }, setModal, closeModal }) {
     return (
         <nav className={styles.nav}>
             <Dropdown title="File">
                 <Button onClick={() => alert(editorRef.getValue())}>Export File</Button>
-                <Button>Settings</Button>
+                <Button onClick={() => {
+                    setModal(m => [
+                        ...m,
+                        <Modal title={"test"} closeModal>
+                            Lol easy
+                        </Modal>
+                    ]);
+                }}>Settings</Button>
             </Dropdown>
             <Dropdown title="Edit">
                 <Button>AOC Inputs</Button>

@@ -4,6 +4,7 @@ import Editor from "@monaco-editor/react";
 import { useRef, useState } from 'react';
 
 import { Nav } from '../components/Nav/Nav.js';
+import { Modal } from '../components/Modal/Modal.js';
 
 const file = `
 /**
@@ -20,7 +21,13 @@ export function App() {
   const editorRef = useRef(null);
   const monacoRef = useRef(null);
 
-  const [modals, setModal] = useState([]);
+  const [modals, setModal] = useState([
+    <Modal title={"test"} closeModal={closeModal} key={0}>
+      Lol easy
+    </Modal>
+  ]);
+
+
 
   function editorMount(editor, monaco) {
     editorRef.current = editor;
@@ -64,8 +71,7 @@ export function App() {
       rules: [
         { token: "identifier.js", foreground: "9cdcfe" }
       ],
-      colors: {
-      }
+      colors: {}
     });
 
     editor.updateOptions({
@@ -87,6 +93,7 @@ export function App() {
       <Nav
         editorRef={editorRef}
         setModal={setModal}
+        closeModal={closeModal}
       />
 
       <Editor

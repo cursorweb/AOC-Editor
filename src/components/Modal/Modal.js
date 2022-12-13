@@ -1,14 +1,14 @@
 import styles from "./Modal.module.css";
 
 // todo: resizeable, draggable
-export function Modal({ title, children, ...props }) {
+export function Modal({ title, children, closeModal, ...props }) {
     return (
         <div className={styles.cont}>
             <div className={styles.topNav}>
-                <div>
+                <div className={styles.windowTitle}>
                     {title}
                 </div>
-                <div>&times;</div>
+                <div className={styles.close} onClick={closeModal}>&times;</div>
             </div>
             <div {...props}>
                 {children}

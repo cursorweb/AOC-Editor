@@ -1,0 +1,33 @@
+.cont {
+    position: absolute;
+    background: #4c4c4c;
+    top: 25%;
+    left: 25%;
+    color: #b1b1b1;
+    width: 50%;
+    height: 50%;
+}
+
+.topNav {
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.windowTitle {
+    padding: 2px 4px;
+    font-weight: bold;
+}
+
+.close {
+    padding: 2px 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+.close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
