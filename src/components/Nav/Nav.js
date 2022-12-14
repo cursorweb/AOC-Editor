@@ -3,7 +3,7 @@ import { Button } from "./Button/Button.js";
 import styles from "./Nav.module.css";
 import { Modal } from "../Modal/Modal.js";
 
-export function Nav({ editorRef: { current: editorRef }, setModal, closeModal }) {
+export function Nav({ editorRef: { current: editorRef }, setModal: _setModal, closeModal }) {
     return (
         <nav className={styles.nav}>
             <Dropdown title="File">
