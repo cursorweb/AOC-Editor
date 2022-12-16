@@ -21,8 +21,8 @@ export function App() {
     const editorRef = useRef(null);
     const monacoRef = useRef(null);
 
-    const [modals, _setModal] = useState([]);
-    function setModal(fel) {
+    const [modals, _setModal] = useState({});
+    function setModal(id, fel) {
         _setModal(m => {
             let iRef = useRef(m.length);
 
