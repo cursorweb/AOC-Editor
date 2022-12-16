@@ -18,110 +18,123 @@ const lines: string[];
 const text: string;`;
 
 export function App() {
-  const editorRef = useRef(null);
-  const monacoRef = useRef(null);
+    const editorRef = useRef(null);
+    const monacoRef = useRef(null);
 
-  const [modals, setModal] = useState([
-    <Modal title={"test"} closeModal={closeModal} key={0}>
-      Lol easy
-    </Modal>
-  ]);
+    const [modals, _setModal] = useState([]);
+    function setModal(fel) {
+        _setModal(m => {
+            let iRef = useRef(m.length);
 
+            const el = fel({
+                // close modal
+                // indexRef
+                closeModal,
+                iRef
+            });
 
+            m.push(el);
+        });
+    }
 
-  function editorMount(editor, monaco) {
-    editorRef.current = editor;
-    monacoRef.current = monaco;
+    function closeModal(iRef) {
+        const i = iRef.current;
+        
+    }
 
-    const jsDefs = monaco.languages.typescript.javascriptDefaults;
+    function editorMount(editor, monaco) {
+        editorRef.current = editor;
+        monacoRef.current = monaco;
 
-    jsDefs.addExtraLib(file, 'file.d.ts');
+        const jsDefs = monaco.languages.typescript.javascriptDefaults;
 
-    fetch("/api/types").then(r => r.json()).then(async files => {
-      for (const path of files) {
-        const text = await fetch("/lib/dist/" + path).then(x => x.text());
-        jsDefs.addExtraLib(text, path);
+        jsDefs.addExtraLib(file, 'file.d.ts');
 
-        if (path === "utils.d.ts") {
-          /*
-          export declare function...
-          export {};
-          */
-          jsDefs.addExtraLib(text.replace(/export declare/g, "").replace(/export \{\};/g, "").replace(/export /g, ""), "global.d.ts");
-        }
-      }
-    });
+        fetch("/api/types").then(r => r.json()).then(async files => {
+            for (const path of files) {
+                const text = await fetch("/lib/dist/" + path).then(x => x.text());
+                jsDefs.addExtraLib(text, path);
 
-    editor.addAction({
-      id: 'run-code',
-      label: 'Run Code',
+                if (path === "utils.d.ts") {
+                    /*
+                    export declare function...
+                    export {};
+                    */
+                    jsDefs.addExtraLib(text.replace(/export declare/g, "").replace(/export \{\};/g, "").replace(/export /g, ""), "global.d.ts");
+                }
+            }
+        });
 
-      keybindings: [
-        monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
-        monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS
-      ],
-      run: () => {
-        evalIt();
-      }
-    });
+        editor.addAction({
+            id: 'run-code',
+            label: 'Run Code',
 
-    monaco.editor.defineTheme('vs-dark-plus', {
-      base: 'vs-dark',
-      inherit: true,
-      rules: [
-        { token: "identifier.js", foreground: "9cdcfe" }
-      ],
-      colors: {}
-    });
+            keybindings: [
+                monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+                monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS
+            ],
+            run: () => {
+                evalIt();
+            }
+        });
 
-    editor.updateOptions({
-      theme: "vs-dark-plus"
-    });
-  }
+        monaco.editor.defineTheme('vs-dark-plus', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [
+                { token: "identifier.js", foreground: "9cdcfe" }
+            ],
+            colors: {}
+        });
 
-  function evalIt() {
-    const code = editorRef.current.getValue();
-    const text = "some\nrandom\ninput";
-    const lines = text.split("\n");
+        editor.updateOptions({
+            theme: "vs-dark-plus"
+        });
+    }
 
-    // eslint-disable-next-line
-    new Function("lines", "text", code)(lines, text);
-  }
+    function evalIt() {
+        const code = editorRef.current.getValue();
+        const text = "some\nrandom\ninput";
+        const lines = text.split("\n");
 
-  return (
-    <div>
-      <Nav
-        editorRef={editorRef}
-        setModal={setModal}
-        closeModal={closeModal}
-      />
+        // eslint-disable-next-line
+        new Function("lines", "text", code)(lines, text);
+    }
 
-      <Editor
-        height="90vh"
-        defaultLanguage="javascript"
-        theme='vs-dark'
-        options={{
-          fontSize: 22,
-          cursorSmoothCaretAnimation: true,
-          scrollBeyondLastLine: true,
-          smoothScrolling: true,
-          // todo: this might be bug
-          // https://github.com/microsoft/monaco-editor/issues/3013
-          'bracketPairColorization.enabled': true,
-        }}
-        onMount={editorMount}
-        defaultValue=""
-      />
+    return (
+        <div>
+            <Nav
+                editorRef={editorRef}
+                setModal={setModal}
+                closeModal={closeModal}
+            />
 
-      <div>
-        {modals}
-      </div>
+            <Editor
+                height="90vh"
+                defaultLanguage="javascript"
+                theme='vs-dark'
+                options={{
+                    fontSize: 22,
+                    cursorSmoothCaretAnimation: true,
+                    scrollBeyondLastLine: true,
+                    smoothScrolling: true,
+                    // todo: this might be bug
+                    // https://github.com/microsoft/monaco-editor/issues/3013
+                    'bracketPairColorization.enabled': true,
+                }}
+                onMount={editorMount}
+                defaultValue=""
+            />
 
-      {
-        process.env.NODE_ENV === 'production' ?
-          <iframe src="/lib/docs" title="Docs"></iframe> :
-          <iframe srcDoc='docs in production only' title='Docs'></iframe>
-      }
-    </div>
-  );
+            <div>
+                {modals}
+            </div>
+
+            {
+                process.env.NODE_ENV === 'production' ?
+                    <iframe src="/lib/docs" title="Docs"></iframe> :
+                    <iframe srcDoc='docs in production only' title='Docs'></iframe>
+            }
+        </div>
+    );
 }
