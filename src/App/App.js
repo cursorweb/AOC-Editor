@@ -21,25 +21,11 @@ export function App() {
     const editorRef = useRef(null);
     const monacoRef = useRef(null);
 
-    const [modals, _setModal] = useState({});
-    function setModal(id, fel) {
-        _setModal(m => {
-            let iRef = useRef(m.length);
+    const [modals, _setModal] = useState([]);
 
-            const el = fel({
-                // close modal
-                // indexRef
-                closeModal,
-                iRef
-            });
-
-            m.push(el);
-        });
-    }
-
-    function closeModal(iRef) {
-        const i = iRef.current;
-        
+    function setModal(el) {
+        modals.push(el);
+        _setModal(modals);
     }
 
     function editorMount(editor, monaco) {
@@ -106,7 +92,6 @@ export function App() {
             <Nav
                 editorRef={editorRef}
                 setModal={setModal}
-                closeModal={closeModal}
             />
 
             <Editor

@@ -9,7 +9,7 @@ export function Nav({ editorRef: { current: editorRef }, setModal }) {
             <Dropdown title="File">
                 <Button onClick={() => alert(editorRef.getValue())}>Export File</Button>
                 <Button onClick={() => {
-                    setModal("settings", <Modal title={"test"}>
+                    setModal(<Modal title={"test"}>
                         Lol easy
                     </Modal>);
                 }}>Settings</Button>
